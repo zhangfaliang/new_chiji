@@ -1,0 +1,27 @@
+.answer-actions {
+  width: 690px;
+  padding: 10px 0 0;
+  color: #a0acac;
+  display: flex;
+  flex-flow: row nowrap;
+
+  view {
+    display: inline-block;
+    vertical-align: text-bottom;
+    padding: 0 10px 0 0;
+    font-size: 24px;
+  }
+
+  .dot {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    view {
+      margin-left: 10px;
+      height: 10px;
+      background-color: #a0acac;
+      border-radius: 50%;
+    }
+  }
+}

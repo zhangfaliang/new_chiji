@@ -1,0 +1,35 @@
+.feed-source {
+    .avatar {
+        position: relative;
+        display: inline-block;
+    }
+    a {
+        display: inline-block;
+        height: 40px;
+    }
+    image {
+        /*position: absolute;*/
+        display: inline-block;
+        width: 45px;
+        height: 45px;
+        border-radius: 45px;
+        top: 10px;
+        vertical-align: middle;
+    }
+    text {
+        /*position: absolute;*/
+        display: inline-block;
+        height: 40px;
+        line-height: 40px;
+        vertical-align: middle;
+        margin: 0 0 0 15px;
+        color: #a0acac;
+        font-size: 26px;
+    }
+    .item-more {
+        display: inline-block;
+        width: 40px;
+        height: 45px;
+        float: right;
+    }
+}
