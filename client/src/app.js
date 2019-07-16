@@ -42,6 +42,7 @@ class App extends Taro.Component {
   config = {
     pages: [
       "pages/index/index",
+      "pages/index_detail/index",
       // "pages/question/question",
       // "pages/answer/answer",
       // "pages/discovery/discovery",

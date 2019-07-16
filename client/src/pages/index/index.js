@@ -9,13 +9,19 @@ import {
 } from "@tarojs/components";
 import Taro, { Component } from "@tarojs/taro";
 import "./index.scss";
-import { getData, getDataUpper, getDataLower } from "../../actions/index";
+import {
+  getData,
+  getDataUpper,
+  getDataLower,
+  setPageIndexDetail
+} from "../../actions/index";
 import { makePageIndex, makeFeed } from "../../selects/pageIndex";
 import { makeCounter } from "../../selects/count";
 import QuestionName from "../../components/questionName/index";
 import ImageWrap from "../../components/images";
 import Layer from "../../components/layer";
 import VideoComponent from "../../components/videoComponent";
+
 @connect(
   createStructuredSelector({
     pageIndex: makePageIndex,
@@ -31,6 +37,9 @@ import VideoComponent from "../../components/videoComponent";
     },
     getDataLower(pageNum) {
       dispatch(getDataLower(pageNum));
+    },
+    onSetPageIndexDetail: detailData => {
+      dispatch(setPageIndexDetail(detailData));
     }
   })
 )
@@ -60,10 +69,30 @@ class Toggle extends Component {
     //   url: `../question/question?question_id=${question_id}`
     // });
   };
-  handleImgClick = large => {
-    this.setState({
+  // handleImgClick = large => {
+  //   this.setState({
+  //     openLayer: true,
+  //     large
+  //   });
+  // };
+  handleImgClick = (pics, index) => {
+    this.props.onSetPageIndexDetail({
       openLayer: true,
-      large
+      pics,
+      index
+    });
+    Taro.navigateTo({
+      url: `/pages/index_detail/index`
+    });
+  };
+
+  videoClick = ({ videoParams }) => {
+    this.props.onSetPageIndexDetail({
+      openLayer: true,
+      videoParams
+    });
+    Taro.navigateTo({
+      url: `/pages/index_detail/index`
     });
   };
   handleClose = () => {
@@ -76,6 +105,7 @@ class Toggle extends Component {
   componentWillMount() {
     this.props.asyncPageIndexGetData(0);
   }
+
   render() {
     const { feedData } = this.props;
     const { feed } = feedData;
@@ -102,7 +132,12 @@ class Toggle extends Component {
                   mp4_sd_url,
                   mp4_hd_url,
                   page_pic,
-                  _id
+                  original_pic,
+                  _id,
+                  pics,
+                  bmiddle_pic,
+                  isMedia,
+                  isPic
                 } = item;
                 return (
                   <Block data-idx={idx}>
@@ -113,16 +148,25 @@ class Toggle extends Component {
                           bindQueTap={this.bindQueTap.bind(this, _id)}
                           question={title}
                         />
-
                         <View className="answer-body">
-                          <VideoComponent
-                            stream_url={stream_url}
-                            stream_url_hd={stream_url_hd}
-                            mp4_sd_url={mp4_sd_url}
-                            mp4_hd_url={mp4_hd_url}
-                            page_pic={page_pic}
-                            title={title}
-                          />
+                          {isPic ? (
+                            <ImageWrap
+                              pics={pics}
+                              handleImgClick={this.handleImgClick}
+                              imageUrl={bmiddle_pic}
+                              bigImgUrl={original_pic}
+                            />
+                          ) : (
+                            <VideoComponent
+                              videoClick={this.videoClick}
+                              stream_url={stream_url}
+                              stream_url_hd={stream_url_hd}
+                              mp4_sd_url={mp4_sd_url}
+                              mp4_hd_url={mp4_hd_url}
+                              page_pic={page_pic}
+                              title={title}
+                            />
+                          )}
                         </View>
                       </View>
                     </View>
