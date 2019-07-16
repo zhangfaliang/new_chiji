@@ -5,7 +5,10 @@ import {
   PAGE_INDEX_SET,
   PAGE_INDEX_UPPER,
   PAGE_INDEX_LOWER,
-  PAGE_INDEX_CLEAR
+  PAGE_INDEX_CLEAR,
+  PAGE_INDEX_DETAIL_SET,
+  API_LAST_PAGE_NUM,
+  API_UPDATE_PAGE_NUM
 } from "../constants/index.js";
 
 export const getData = pageNum => {

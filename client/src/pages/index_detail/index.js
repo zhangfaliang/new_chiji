@@ -18,18 +18,16 @@ import VideoPlay from "../../components/videoComponent/video-play";
   })
 )
 class IndexDetail extends Component {
-
   render() {
-    const { index_detail, isPic } = this.props;
+    const { index_detail } = this.props;
+    const { isPic } = index_detail;
     return (
       <View>
-        <navigator url="/pages/index/index" open-type="navigateBack">
-          {isPic ? (
-            <Layer {...index_detail} handleClose={this.handleClose} />
-          ) : (
-            <VideoPlay {...this.props} {...index_detail} />
-          )}
-        </navigator>
+        {isPic ? (
+          <Layer {...index_detail} handleClose={this.handleClose} />
+        ) : (
+          <VideoPlay {...index_detail} />
+        )}
       </View>
     );
   }

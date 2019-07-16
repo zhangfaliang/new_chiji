@@ -63,25 +63,29 @@ class Toggle extends Component {
       url: `../answer/answer?answer_id=${answer_id}`
     });
   };
-
+  bindQueTap = question_id => {
+    // Taro.navigateTo({
+    //   url: `../question/question?question_id=${question_id}`
+    // });
+  };
 
   handleImgClick = (pics, index) => {
     this.props.onSetPageIndexDetail({
       openLayer: true,
       pics,
       index,
-      isPic:true
+      isPic: true
     });
     Taro.navigateTo({
       url: `/pages/index_detail/index`
     });
   };
 
-  videoClick = ({ videoParams }) => {
+  videoClick = videoParams => {
     this.props.onSetPageIndexDetail({
       openLayer: true,
-      videoParams,
-      isMedia
+      ...videoParams,
+      isMedia: true
     });
     Taro.navigateTo({
       url: `/pages/index_detail/index`
@@ -156,7 +160,6 @@ class Toggle extends Component {
               })}
           </View>
         </ScrollView>
-
       </View>
     );
   }

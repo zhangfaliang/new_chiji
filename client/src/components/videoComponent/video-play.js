@@ -11,14 +11,14 @@ class VideoComponent extends Component {
 
   render() {
     const { mp4_hd_url, title, openDisplay } = this.props;
-    console.log(openDisplay, "openDisplay");
     const videoCls = classnames({
-      [styles.module]: true,
-      [styles.close]: !openDisplay
+      [styles.module]: true
+      // [styles.close]: !openDisplay
     });
     return (
       <View className={videoCls}>
         <Video
+          className={styles.video}
           src={mp4_hd_url}
           page-gesture={true}
           show-fullscreen-btn={true}
