@@ -19,7 +19,6 @@ import { makePageIndex, makeFeed } from "../../selects/pageIndex";
 import { makeCounter } from "../../selects/count";
 import QuestionName from "../../components/questionName/index";
 import ImageWrap from "../../components/images";
-import Layer from "../../components/layer";
 import VideoComponent from "../../components/videoComponent";
 
 @connect(
@@ -64,22 +63,14 @@ class Toggle extends Component {
       url: `../answer/answer?answer_id=${answer_id}`
     });
   };
-  bindQueTap = question_id => {
-    // Taro.navigateTo({
-    //   url: `../question/question?question_id=${question_id}`
-    // });
-  };
-  // handleImgClick = large => {
-  //   this.setState({
-  //     openLayer: true,
-  //     large
-  //   });
-  // };
+
+
   handleImgClick = (pics, index) => {
     this.props.onSetPageIndexDetail({
       openLayer: true,
       pics,
-      index
+      index,
+      isPic:true
     });
     Taro.navigateTo({
       url: `/pages/index_detail/index`
@@ -89,7 +80,8 @@ class Toggle extends Component {
   videoClick = ({ videoParams }) => {
     this.props.onSetPageIndexDetail({
       openLayer: true,
-      videoParams
+      videoParams,
+      isMedia
     });
     Taro.navigateTo({
       url: `/pages/index_detail/index`
@@ -127,16 +119,10 @@ class Toggle extends Component {
               feed.map((item, idx) => {
                 const {
                   title,
-                  stream_url,
-                  stream_url_hd,
-                  mp4_sd_url,
-                  mp4_hd_url,
-                  page_pic,
                   original_pic,
                   _id,
                   pics,
                   bmiddle_pic,
-                  isMedia,
                   isPic
                 } = item;
                 return (
@@ -159,12 +145,7 @@ class Toggle extends Component {
                           ) : (
                             <VideoComponent
                               videoClick={this.videoClick}
-                              stream_url={stream_url}
-                              stream_url_hd={stream_url_hd}
-                              mp4_sd_url={mp4_sd_url}
-                              mp4_hd_url={mp4_hd_url}
-                              page_pic={page_pic}
-                              title={title}
+                              {...item}
                             />
                           )}
                         </View>
@@ -175,7 +156,7 @@ class Toggle extends Component {
               })}
           </View>
         </ScrollView>
-        <Layer {...this.state} handleClose={this.handleClose} />
+
       </View>
     );
   }
