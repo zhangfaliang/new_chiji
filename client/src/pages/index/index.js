@@ -15,17 +15,21 @@ import {
   getDataLower,
   setPageIndexDetail
 } from "../../actions/index";
-import { makePageIndex, makeFeed } from "../../selects/pageIndex";
+import {
+  makePageIndex,
+  makeFeed,
+  makeIndexAdvertising
+} from "../../selects/pageIndex";
 import { makeCounter } from "../../selects/count";
 import QuestionName from "../../components/questionName/index";
 import ImageWrap from "../../components/images";
 import VideoComponent from "../../components/videoComponent";
-
 @connect(
   createStructuredSelector({
     pageIndex: makePageIndex,
     feedData: makeFeed,
-    counter: makeCounter
+    counter: makeCounter,
+    indexAdvertising: makeIndexAdvertising
   }),
   dispatch => ({
     asyncPageIndexGetData: pageNum => {
@@ -63,11 +67,7 @@ class Toggle extends Component {
       url: `../answer/answer?answer_id=${answer_id}`
     });
   };
-  bindQueTap = question_id => {
-    // Taro.navigateTo({
-    //   url: `../question/question?question_id=${question_id}`
-    // });
-  };
+  bindQueTap = question_id => {};
 
   handleImgClick = (pics, index) => {
     this.props.onSetPageIndexDetail({
@@ -103,11 +103,25 @@ class Toggle extends Component {
   }
 
   render() {
-    const { feedData } = this.props;
+    const { feedData ,indexAdvertising} = this.props;
     const { feed } = feedData;
     return (
       <View>
         {/* <Search /> */}
+        <Swiper autoplay={true} interval={1000} duration={300}>
+          {indexAdvertising &&
+            indexAdvertising.map(unitId => {
+              return (
+                <SwiperItem>
+                  <ad
+                    class="ad"
+                    style="width:'100%',height:'100%'"
+                    unit-id={unitId}
+                  />
+                </SwiperItem>
+              );
+            })}
+        </Swiper>
         <ScrollView
           scrollY="true"
           className="container"

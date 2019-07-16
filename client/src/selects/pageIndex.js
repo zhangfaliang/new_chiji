@@ -24,3 +24,36 @@ export const makeDetailData = createSelector(
     return get(pageIndex, "index_detail", {});
   }
 );
+export const makeLastPageNum = createSelector(
+  pageIndex,
+  pageIndex => {
+    return get(pageIndex, "lastPageNum", 0);
+  }
+);
+export const makeAdvertising = createSelector(
+  pageIndex,
+  pageIndex => {
+    const { advertising, advertisingIndexDetail } = get(
+      pageIndex,
+      "indexAdvertising.data.0",
+      {}
+    );
+    return {
+      advertising,
+      advertisingIndexDetail
+    };
+  }
+);
+
+export const makeIndexAdvertising = createSelector(
+  makeAdvertising,
+  advertising => {
+    return get(advertising, "advertising");
+  }
+);
+export const makeIndexDetailAdvertising = createSelector(
+  makeAdvertising,
+  advertising => {
+    return get(advertising, "advertisingIndexDetail");
+  }
+);

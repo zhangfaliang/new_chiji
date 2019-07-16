@@ -3,13 +3,17 @@ import { createStructuredSelector } from "reselect";
 import { View } from "@tarojs/components";
 import Taro, { Component } from "@tarojs/taro";
 import { setPageIndexDetail } from "../../actions/index";
-import { makeDetailData } from "../../selects/pageIndex";
+import {
+  makeDetailData,
+  makeIndexDetailAdvertising
+} from "../../selects/pageIndex";
 import Layer from "../../components/layer";
 import VideoPlay from "../../components/videoComponent/video-play";
 
 @connect(
   createStructuredSelector({
-    index_detail: makeDetailData
+    index_detail: makeDetailData,
+    detailAdvertising: makeIndexDetailAdvertising
   }),
   dispatch => ({
     onSetPageIndexDetail: detailData => {
@@ -19,15 +23,32 @@ import VideoPlay from "../../components/videoComponent/video-play";
 )
 class IndexDetail extends Component {
   render() {
-    const { index_detail } = this.props;
+    const { index_detail, detailAdvertising } = this.props;
     const { isPic } = index_detail;
     return (
       <View>
-        {isPic ? (
-          <Layer {...index_detail} handleClose={this.handleClose} />
-        ) : (
-          <VideoPlay {...index_detail} />
-        )}
+        <Swiper autoplay={true} interval={1000} duration={300}>
+          {detailAdvertising &&
+            detailAdvertising.map(unitId => {
+              return (
+                <SwiperItem>
+                  <ad
+                    class="ad"
+                    style="width:'100%',height:'100%'"
+                    unit-id={unitId}
+                  />
+                </SwiperItem>
+              );
+            })}
+        </Swiper>
+        <view>
+          {" "}
+          {isPic ? (
+            <Layer {...index_detail} handleClose={this.handleClose} />
+          ) : (
+            <VideoPlay {...index_detail} />
+          )}
+        </view>
       </View>
     );
   }

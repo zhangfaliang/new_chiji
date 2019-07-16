@@ -3,14 +3,16 @@ import {
   PAGE_INDEX_CLEAR,
   PAGE_INDEX_DETAIL_SET,
   API_LAST_PAGE_NUM,
-  API_UPDATE_PAGE_NUM
+  API_UPDATE_PAGE_NUM,
+  SET_PAGE_INDEX_ADVERTISING
 } from "../constants/index";
 
 const INITIAL_STATE = {
   pageDate: [],
   index_detail: {},
   lastPageNum: 0,
-  updatePageNum: 1
+  updatePageNum: 1,
+  indexAdvertising: {}
 };
 
 export default function pageIndex(state = INITIAL_STATE, action) {
@@ -40,6 +42,12 @@ export default function pageIndex(state = INITIAL_STATE, action) {
         ...state,
         lastPageNum: action.updatePageNum
       };
+    case SET_PAGE_INDEX_ADVERTISING:
+      return {
+        ...state,
+        indexAdvertising: action.indexAdvertising
+      };
+
     default:
       return state;
   }
