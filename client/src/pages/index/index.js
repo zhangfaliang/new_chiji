@@ -8,6 +8,7 @@ import {
   SwiperItem
 } from "@tarojs/components";
 import Taro, { Component } from "@tarojs/taro";
+import { isEmpty } from "lodash";
 import "./index.scss";
 import {
   getData,
@@ -60,7 +61,8 @@ class Toggle extends Component {
   lower = e => {
     const { feedData } = this.props;
     const { feed_length } = feedData;
-    this.props.getDataLower(feed_length / 20);
+    const pageNum = feed_length / 10;
+    this.props.getDataLower(pageNum <= 1 ? 2 : pageNum);
   };
   bindItemTap = answer_id => {
     Taro.navigateTo({
@@ -103,7 +105,7 @@ class Toggle extends Component {
   }
 
   render() {
-    const { feedData ,indexAdvertising} = this.props;
+    const { feedData, indexAdvertising } = this.props;
     const { feed } = feedData;
     return (
       <View>
@@ -134,44 +136,46 @@ class Toggle extends Component {
         >
           <View className="todo">
             {feed &&
-              feed.map((item, idx) => {
-                const {
-                  title,
-                  original_pic,
-                  _id,
-                  pics,
-                  bmiddle_pic,
-                  isPic
-                } = item;
-                return (
-                  <Block data-idx={idx}>
-                    <View className="feed-item">
-                      <View className="feed-content">
-                        <QuestionName
-                          question_id={_id}
-                          bindQueTap={this.bindQueTap.bind(this, _id)}
-                          question={title}
-                        />
-                        <View className="answer-body">
-                          {isPic ? (
-                            <ImageWrap
-                              pics={pics}
-                              handleImgClick={this.handleImgClick}
-                              imageUrl={bmiddle_pic}
-                              bigImgUrl={original_pic}
-                            />
-                          ) : (
-                            <VideoComponent
-                              videoClick={this.videoClick}
-                              {...item}
-                            />
-                          )}
+              feed
+                .filter(item => !isEmpty(item))
+                .map((item, idx) => {
+                  const {
+                    title,
+                    original_pic,
+                    _id,
+                    pics,
+                    bmiddle_pic,
+                    isPic
+                  } = item;
+                  return (
+                    <Block data-idx={idx}>
+                      <View className="feed-item">
+                        <View className="feed-content">
+                          <QuestionName
+                            question_id={_id}
+                            bindQueTap={this.bindQueTap.bind(this, _id)}
+                            question={title}
+                          />
+                          <View className="answer-body">
+                            {isPic ? (
+                              <ImageWrap
+                                pics={pics}
+                                handleImgClick={this.handleImgClick}
+                                imageUrl={bmiddle_pic}
+                                bigImgUrl={original_pic}
+                              />
+                            ) : (
+                              <VideoComponent
+                                videoClick={this.videoClick}
+                                {...item}
+                              />
+                            )}
+                          </View>
                         </View>
                       </View>
-                    </View>
-                  </Block>
-                );
-              })}
+                    </Block>
+                  );
+                })}
           </View>
         </ScrollView>
       </View>

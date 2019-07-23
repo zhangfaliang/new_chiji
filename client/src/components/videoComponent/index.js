@@ -16,9 +16,6 @@ class Node extends Component {
     //require("../../images/eye.png")
     const {
       page_pic,
-      stream_url,
-      stream_url_hd,
-      mp4_sd_url,
       mp4_hd_url,
       title
     } = this.props;
@@ -28,9 +25,6 @@ class Node extends Component {
         className={styles.video}
         onClick={() => {
           this.videoClick({
-            stream_url,
-            stream_url_hd,
-            mp4_sd_url,
             mp4_hd_url,
             page_pic,
             title

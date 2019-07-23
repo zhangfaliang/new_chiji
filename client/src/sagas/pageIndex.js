@@ -20,9 +20,8 @@ function* fetchData(action) {
   try {
     const { pageNum } = action;
     const data = yield call(getPageIndexDate, pageNum);
-    const indexAdvertising = yield call(getIndexAdvertising);
+    console.log(data)
     yield put({ type: PAGE_INDEX_SET, data });
-    yield put({ type: SET_PAGE_INDEX_ADVERTISING, indexAdvertising });
     
   } catch (e) {
     // yield put({ type: PAGE_INDEX_SET, message: e.message });
@@ -65,7 +64,6 @@ function* fetchLower(action) {
       // duration: 1000
     });
     const data = yield call(getPageIndexDate, pageNum);
-    console.log("continueload");
     Taro.showToast({
       title: "加载成功",
       icon: "success"

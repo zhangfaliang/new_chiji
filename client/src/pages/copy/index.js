@@ -78,7 +78,7 @@ class _C extends Taro.Component {
   refresh0 = () => {
     var index_api = "";
     util.getData(index_api).then(function(data) {
-      //this.setData({
+      //this.({
       //
       //});
       console.log(data);
@@ -88,7 +88,7 @@ class _C extends Taro.Component {
     var feed = util.getData2();
     console.log("loaddata");
     var feed_data = feed.data;
-    this.setData({
+    this.({
       feed: feed_data,
       feed_length: feed_data.length
     });
@@ -102,7 +102,7 @@ class _C extends Taro.Component {
     var feed = util.getData2();
     console.log("loaddata");
     var feed_data = feed.data;
-    this.setData({
+    this.({
       feed: feed_data,
       feed_length: feed_data.length
     });
@@ -123,7 +123,7 @@ class _C extends Taro.Component {
     var next = util.getNext();
     console.log("continueload");
     var next_data = next.data;
-    this.setData({
+    this.({
       feed: this.data.feed.concat(next_data),
       feed_length: this.data.feed_length + next_data.length
     });
