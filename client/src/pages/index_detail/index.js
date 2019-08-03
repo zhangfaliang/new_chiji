@@ -24,7 +24,7 @@ import VideoPlay from "../../components/videoComponent/video-play";
 class IndexDetail extends Component {
   render() {
     const { index_detail, detailAdvertising } = this.props;
-    const { isPic } = index_detail;
+    const { pics } = index_detail;
     return (
       <View>
         <Swiper autoplay={true} interval={1000} duration={300}>
@@ -43,7 +43,7 @@ class IndexDetail extends Component {
         </Swiper>
         <view>
           {" "}
-          {isPic ? (
+          {pics ? (
             <Layer {...index_detail} handleClose={this.handleClose} />
           ) : (
             <VideoPlay {...index_detail} />
