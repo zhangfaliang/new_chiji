@@ -88,10 +88,10 @@ class _C extends Taro.Component {
     var feed = util.getData2();
     console.log("loaddata");
     var feed_data = feed.data;
-    this.({
-      feed: feed_data,
-      feed_length: feed_data.length
-    });
+    // this.({
+    //   feed: feed_data,
+    //   feed_length: feed_data.length
+    // });
   };
   refresh = () => {
     Taro.showToast({
@@ -102,10 +102,10 @@ class _C extends Taro.Component {
     var feed = util.getData2();
     console.log("loaddata");
     var feed_data = feed.data;
-    this.({
-      feed: feed_data,
-      feed_length: feed_data.length
-    });
+    // this.({
+    //   feed: feed_data,
+    //   feed_length: feed_data.length
+    // });
     setTimeout(function() {
       Taro.showToast({
         title: "刷新成功",
@@ -123,10 +123,10 @@ class _C extends Taro.Component {
     var next = util.getNext();
     console.log("continueload");
     var next_data = next.data;
-    this.({
-      feed: this.data.feed.concat(next_data),
-      feed_length: this.data.feed_length + next_data.length
-    });
+    // this.({
+    //   feed: this.data.feed.concat(next_data),
+    //   feed_length: this.data.feed_length + next_data.length
+    // });
     setTimeout(function() {
       Taro.showToast({
         title: "加载成功",

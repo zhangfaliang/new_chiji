@@ -2,6 +2,7 @@ import Taro, { Component } from "@tarojs/taro";
 import classnames from "classnames";
 import { View, Image, Icon, Video } from "@tarojs/components";
 import VideoPlay from "./video-play";
+import playPng from '../../images/play.png';
 
 import styles from "./index.module.scss";
 
@@ -32,7 +33,7 @@ class Node extends Component {
         }}
       >
         <View className={styles.play}>
-          <Icon size="40" type="download" color="#ccc" />
+          <Image src={playPng} alt=""/>
         </View>
         <Image src={page_pic} />
       </View>
