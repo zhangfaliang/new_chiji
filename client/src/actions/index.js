@@ -86,13 +86,13 @@ export const initPage = () => {
   };
 };
 
-
-export const getDatailSQL = () => {
+export const getDatailSQL = key_id => {
   return {
-    type: GET_DATEIL_SQL_DATA
+    type: GET_DATEIL_SQL_DATA,
+    key_id
   };
 };
-export const setDatailSQL = (data) => {
+export const setDatailSQL = data => {
   return {
     type: SET_DATEIL_SQL_DATA,
     data

@@ -127,7 +127,6 @@ class Toggle extends Component {
 
   componentWillMount() {
     this.props.initPage();
-    this.props.asyncPageIndexGetData(0);
   }
 
   render() {

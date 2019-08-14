@@ -45,6 +45,7 @@ function* initPage() {
 function* getDatalSQL(action) {
   try {
     const { key_id } = action;
+    console.log(key_id,'---')
     const data = yield call(getTextDetail, key_id);
     yield put({ type: SET_DATEIL_SQL_DATA, data });
   } catch (e) {
