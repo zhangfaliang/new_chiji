@@ -76,7 +76,6 @@ class Discovery extends Taro.Component {
       //this.setData({
       //
       //});
-      console.log(data);
     });
   };
   refresh = () => {

@@ -81,7 +81,6 @@ class _C extends Taro.Component {
       //this.({
       //
       //});
-      console.log(data);
     });
   };
   getData = () => {

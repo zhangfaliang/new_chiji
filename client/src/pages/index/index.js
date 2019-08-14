@@ -14,7 +14,8 @@ import {
   getData,
   getDataUpper,
   getDataLower,
-  setPageIndexDetail
+  setPageIndexDetail,
+  initPage
 } from "../../actions/index";
 import {
   makePageIndex,
@@ -25,6 +26,31 @@ import { makeCounter } from "../../selects/count";
 import QuestionName from "../../components/questionName/index";
 import ImageWrap from "../../components/images";
 import VideoComponent from "../../components/videoComponent";
+import EssayList from "../../components/essayList";
+const titleList = [
+  {
+    title: "新手吃鸡必看 绝地求生大逃杀生存指南",
+    imgUrl:
+      "http://5b0988e595225.cdn.sohucs.com/images/20171113/fbf8aae351cd4049bf8f29ec22b70e96.jpeg",
+    idNum: "01"
+  },
+  {
+    title: "新手吃鸡，自定义操作",
+    imgUrl:
+      "http://img5.imgtn.bdimg.com/it/u=3159449345,3781131544&fm=27&gp=0.jpg",
+    idNum: "02"
+  },
+  {
+    title: "绝地求生刺激战场怎么瞄准",
+    imgUrl: "http://pic.uzzf.com/up/2017-9/20179259513989.png",
+    idNum: "03"
+  },
+  {
+    title: "超级干货贴! 教你如何用手机操作稳吃鸡",
+    imgUrl: "http://img.18183.com/uploads/allimg/171107/168-1G10GI353235.jpg",
+    idNum: "04"
+  }
+];
 @connect(
   createStructuredSelector({
     pageIndex: makePageIndex,
@@ -33,6 +59,9 @@ import VideoComponent from "../../components/videoComponent";
     indexAdvertising: makeIndexAdvertising
   }),
   dispatch => ({
+    initPage: () => {
+      dispatch(initPage());
+    },
     asyncPageIndexGetData: pageNum => {
       dispatch(getData(pageNum));
     },
@@ -99,8 +128,12 @@ class Toggle extends Component {
       large: {}
     });
   };
+  onTitleClick = idNum => {
+    console.log(idNum);
+  };
 
   componentWillMount() {
+    this.props.initPage();
     this.props.asyncPageIndexGetData(0);
   }
 
@@ -135,7 +168,21 @@ class Toggle extends Component {
           scrollTop={true}
         >
           <View className="todo">
+            {titleList &&
+              titleList.map(item => {
+                const { imgUrl, title, idNum } = item;
+                return (
+                  <EssayList
+                    key={idNum}
+                    imgUrl={imgUrl}
+                    idNum={idNum}
+                    title={title}
+                    titleClick={this.onTitleClick}
+                  />
+                );
+              })}
             {feed &&
+              !titleList &&
               feed
                 .filter(item => !isEmpty(item))
                 .map((item, idx) => {

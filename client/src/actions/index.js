@@ -8,7 +8,10 @@ import {
   PAGE_INDEX_CLEAR,
   PAGE_INDEX_DETAIL_SET,
   API_LAST_PAGE_NUM,
-  API_UPDATE_PAGE_NUM
+  API_UPDATE_PAGE_NUM,
+  SET_CONFIG,
+  GET_CONFIG,
+  INIT_PAGE
 } from "../constants/index.js";
 
 export const getData = pageNum => {
@@ -59,5 +62,24 @@ export const setUpdatePageNum = updatePageNum => {
   return {
     type: API_UPDATE_PAGE_NUM,
     updatePageNum
+  };
+};
+
+export const getConfig = () => {
+  return {
+    type: GET_CONFIG
+  };
+};
+
+export const setConfig = configData => {
+  return {
+    type: SET_CONFIG,
+    configData
+  };
+};
+
+export const initPage = () => {
+  return {
+    type: INIT_PAGE
   };
 };

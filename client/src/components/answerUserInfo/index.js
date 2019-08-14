@@ -4,7 +4,6 @@ import styles  from "./index.module.scss";
 class AnswerUserInfo extends Component {
   render() {
     const { userInfo } = this.props;
-    console.log(styles)
     return (
       <View className={styles['answerer-wrp']}>
           <View className={styles['bg-half']} />
