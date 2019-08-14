@@ -11,6 +11,8 @@ import {
   API_UPDATE_PAGE_NUM,
   SET_CONFIG,
   GET_CONFIG,
+  GET_DATEIL_SQL_DATA,
+  SET_DATEIL_SQL_DATA,
   INIT_PAGE
 } from "../constants/index.js";
 
@@ -81,5 +83,18 @@ export const setConfig = configData => {
 export const initPage = () => {
   return {
     type: INIT_PAGE
+  };
+};
+
+
+export const getDatailSQL = () => {
+  return {
+    type: GET_DATEIL_SQL_DATA
+  };
+};
+export const setDatailSQL = (data) => {
+  return {
+    type: SET_DATEIL_SQL_DATA,
+    data
   };
 };

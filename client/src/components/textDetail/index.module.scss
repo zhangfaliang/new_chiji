@@ -1,0 +1,15 @@
+.wrap {
+  display: flex;
+  flex: 1;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 20px;
+  flex-flow: column nowrap;
+  .content {
+    display: flex;
+    flex: 1;
+    justify-content: flex-start;
+    align-items: center;
+    flex-flow: column nowrap;
+  }
+}

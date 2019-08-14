@@ -15,48 +15,30 @@ import {
   getDataUpper,
   getDataLower,
   setPageIndexDetail,
-  initPage
+  initPage,
+  getDatailSQL
 } from "../../actions/index";
 import {
   makePageIndex,
   makeFeed,
-  makeIndexAdvertising
+  makeIndexAdvertising,
+  makeTitleList,
+  makeIsAPI
 } from "../../selects/pageIndex";
 import { makeCounter } from "../../selects/count";
 import QuestionName from "../../components/questionName/index";
 import ImageWrap from "../../components/images";
 import VideoComponent from "../../components/videoComponent";
 import EssayList from "../../components/essayList";
-const titleList = [
-  {
-    title: "新手吃鸡必看 绝地求生大逃杀生存指南",
-    imgUrl:
-      "http://5b0988e595225.cdn.sohucs.com/images/20171113/fbf8aae351cd4049bf8f29ec22b70e96.jpeg",
-    idNum: "01"
-  },
-  {
-    title: "新手吃鸡，自定义操作",
-    imgUrl:
-      "http://img5.imgtn.bdimg.com/it/u=3159449345,3781131544&fm=27&gp=0.jpg",
-    idNum: "02"
-  },
-  {
-    title: "绝地求生刺激战场怎么瞄准",
-    imgUrl: "http://pic.uzzf.com/up/2017-9/20179259513989.png",
-    idNum: "03"
-  },
-  {
-    title: "超级干货贴! 教你如何用手机操作稳吃鸡",
-    imgUrl: "http://img.18183.com/uploads/allimg/171107/168-1G10GI353235.jpg",
-    idNum: "04"
-  }
-];
+
 @connect(
   createStructuredSelector({
     pageIndex: makePageIndex,
     feedData: makeFeed,
     counter: makeCounter,
-    indexAdvertising: makeIndexAdvertising
+    indexAdvertising: makeIndexAdvertising,
+    titleList: makeTitleList,
+    isAPI: makeIsAPI
   }),
   dispatch => ({
     initPage: () => {
@@ -73,6 +55,9 @@ const titleList = [
     },
     onSetPageIndexDetail: detailData => {
       dispatch(setPageIndexDetail(detailData));
+    },
+    onGetDatailSQL: key_id => {
+      dispatch(getDatailSQL(key_id));
     }
   })
 )
@@ -129,7 +114,15 @@ class Toggle extends Component {
     });
   };
   onTitleClick = idNum => {
-    console.log(idNum);
+    this.props.onSetPageIndexDetail({
+      openLayer: true,
+      idNum: idNum,
+      isText: true
+    });
+    this.props.onGetDatailSQL(idNum);
+    Taro.navigateTo({
+      url: `/pages/index_detail/index`
+    });
   };
 
   componentWillMount() {
@@ -138,7 +131,7 @@ class Toggle extends Component {
   }
 
   render() {
-    const { feedData, indexAdvertising } = this.props;
+    const { feedData, indexAdvertising, titleList, isAPI } = this.props;
     const { feed } = feedData;
     return (
       <View>
@@ -168,7 +161,8 @@ class Toggle extends Component {
           scrollTop={true}
         >
           <View className="todo">
-            {titleList &&
+            {!isAPI &&
+              titleList &&
               titleList.map(item => {
                 const { imgUrl, title, idNum } = item;
                 return (
@@ -182,7 +176,7 @@ class Toggle extends Component {
                 );
               })}
             {feed &&
-              !titleList &&
+              isAPI &&
               feed
                 .filter(item => !isEmpty(item))
                 .map((item, idx) => {

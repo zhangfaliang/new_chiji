@@ -6,7 +6,8 @@ import {
   API_UPDATE_PAGE_NUM,
   SET_PAGE_INDEX_ADVERTISING,
   SET_CONFIG,
-  SET_SQL_DATA
+  SET_SQL_DATA,
+  SET_DATEIL_SQL_DATA
 } from "../constants/index";
 
 const INITIAL_STATE = {
@@ -16,7 +17,8 @@ const INITIAL_STATE = {
   updatePageNum: 1,
   indexAdvertising: {},
   config: {},
-  titleList: []
+  titleList: [],
+  datailText: {}
 };
 
 export default function pageIndex(state = INITIAL_STATE, action) {
@@ -60,6 +62,11 @@ export default function pageIndex(state = INITIAL_STATE, action) {
       return {
         ...state,
         titleList: action.titleList
+      };
+    case SET_DATEIL_SQL_DATA:
+      return {
+        ...state,
+        datailText: action.data
       };
 
     default:

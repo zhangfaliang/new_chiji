@@ -21,7 +21,7 @@ export const makeFeed = createSelector(
 export const makeDetailData = createSelector(
   pageIndex,
   pageIndex => {
-    return get(pageIndex, "index_detail", {});
+    return get(pageIndex, "index_detail", { isMedia: false, isText: false });
   }
 );
 export const makeLastPageNum = createSelector(
@@ -57,3 +57,32 @@ export const makeIndexDetailAdvertising = createSelector(
     return get(advertising, "advertisingIndexDetail");
   }
 );
+
+export const makeConfig = createSelector(
+  pageIndex,
+  data => {
+    return get(data, "config", {});
+  }
+);
+
+export const makeIsAPI = createSelector(
+  makeConfig,
+  config => {
+    return get(config, "isApi", false);
+  }
+);
+
+export const makeTitleList = createSelector(
+  pageIndex,
+  data => {
+    return get(data, "titleList", []);
+  }
+);
+
+export const makeDatailText = createSelector(
+  pageIndex,
+  data => {
+    return get(data, "datailText.data", {});
+  }
+);
+

@@ -15,3 +15,7 @@ export const INIT_PAGE = 'INIT_PAGE'
 export const GET_SQL_DATA = 'GET_SQL_DATA'
 export const SET_SQL_DATA = 'SET_SQL_DATA'
 
+export const GET_DATEIL_SQL_DATA = 'GET_DATEIL_SQL_DATA'
+export const SET_DATEIL_SQL_DATA = 'SET_DATEIL_SQL_DATA'
+
+

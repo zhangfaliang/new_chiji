@@ -5,15 +5,18 @@ import Taro, { Component } from "@tarojs/taro";
 import { setPageIndexDetail } from "../../actions/index";
 import {
   makeDetailData,
-  makeIndexDetailAdvertising
+  makeIndexDetailAdvertising,
+  makeDatailText
 } from "../../selects/pageIndex";
 import Layer from "../../components/layer";
 import VideoPlay from "../../components/videoComponent/video-play";
+import TextDetail from "../../components/textDetail";
 
 @connect(
   createStructuredSelector({
     index_detail: makeDetailData,
-    detailAdvertising: makeIndexDetailAdvertising
+    detailAdvertising: makeIndexDetailAdvertising,
+    datailText: makeDatailText
   }),
   dispatch => ({
     onSetPageIndexDetail: detailData => {
@@ -23,8 +26,8 @@ import VideoPlay from "../../components/videoComponent/video-play";
 )
 class IndexDetail extends Component {
   render() {
-    const { index_detail, detailAdvertising } = this.props;
-    const { pics } = index_detail;
+    const { index_detail, detailAdvertising, datailText } = this.props;
+    const { pics, isMedia, isText } = index_detail;
     return (
       <View>
         <Swiper autoplay={true} interval={1000} duration={300}>
@@ -46,8 +49,10 @@ class IndexDetail extends Component {
           {pics ? (
             <Layer {...index_detail} handleClose={this.handleClose} />
           ) : (
-            <VideoPlay {...index_detail} />
+            ""
           )}
+          {isMedia ? <VideoPlay {...index_detail} /> : ""}
+          {isText ? <TextDetail datailText={datailText} /> : ""}
         </view>
       </View>
     );

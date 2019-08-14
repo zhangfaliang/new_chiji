@@ -11,30 +11,48 @@ import {
   getIndexUrlData
 } from "../services/pageIndex";
 import {
+  getTextDetail
+} from "../services/answerDetail";
+import {
   PAGE_INDEX_GET,
   PAGE_INDEX_SET,
   PAGE_INDEX_UPPER,
   PAGE_INDEX_LOWER,
   INIT_PAGE,
   SET_CONFIG,
-  SET_SQL_DATA
+  SET_SQL_DATA,
+  GET_DATEIL_SQL_DATA,
+  SET_DATEIL_SQL_DATA
 } from "../constants/index";
 // worker Saga : 将在 PAGE_INDEX_SET action 被 dispatch 时调用
+
 
 function* initPage() {
   const data = yield call(getConfig);
   const res = get(data, "data.0", {});
   yield put({ type: SET_CONFIG, config: res });
   const { isApi, apiParams } = res;
-  if (true||isApi) {
+  if (isApi) {
     const apiData = yield call(getIndexUrlData, { pageNum: 0, apiParams });
-    yield put({ type: PAGE_INDEX_SET, data:apiData });
+    yield put({ type: PAGE_INDEX_SET, data: apiData });
   } else {
     const sqlData = yield call(getPageIndexSqlData, 0);
     const titleList = get(sqlData, "data", []);
     yield put({ type: SET_SQL_DATA, titleList });
   }
 }
+
+function* getDatalSQL(action) {
+  try {
+    const { key_id } = action;
+    const data = yield call(getTextDetail, key_id);
+    yield put({ type: SET_DATEIL_SQL_DATA, data });
+  } catch (e) {
+    // yield put({ type: PAGE_INDEX_SET, message: e.message });
+  }
+}
+
+
 function* fetchData(action) {
   try {
     const { pageNum } = action;
@@ -105,6 +123,9 @@ function* mySaga() {
   yield takeEvery(PAGE_INDEX_GET, fetchData);
   yield takeLatest(PAGE_INDEX_UPPER, fetchUpdate);
   yield takeLatest(PAGE_INDEX_LOWER, fetchLower);
+  yield takeLatest(GET_DATEIL_SQL_DATA, getDatalSQL);
+
+  
 }
 
 export default mySaga;
