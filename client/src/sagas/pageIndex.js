@@ -6,7 +6,8 @@ import { makeConfigAll } from '../selects/pageIndex'
 import {
   getConfig,
   getPageIndexSqlData,
-  getIndexUrlData
+  getIndexUrlData,
+  getIndexAdvertising
 } from "../services/pageIndex";
 import {
   getTextDetail
@@ -20,16 +21,20 @@ import {
   SET_CONFIG,
   SET_SQL_DATA,
   GET_DATEIL_SQL_DATA,
-  SET_DATEIL_SQL_DATA
+  SET_DATEIL_SQL_DATA,
+  SET_PAGE_INDEX_ADVERTISING
 } from "../constants/index";
 // worker Saga : 将在 PAGE_INDEX_SET action 被 dispatch 时调用
 
 
 function* initPage() {
   const data = yield call(getConfig);
+  const indexAdvertising = yield call(getIndexAdvertising);  
+  yield put({ type: SET_PAGE_INDEX_ADVERTISING, indexAdvertising });
   const res = get(data, "data.0", {});
   yield put({ type: SET_CONFIG, config: res });
   const { isApi, apiParams } = res;
+
   if (isApi) {
     const apiData = yield call(getIndexUrlData, { pageNum: 0, apiParams });
     yield put({ type: PAGE_INDEX_SET, data: apiData });

@@ -1,5 +1,4 @@
 import Taro, { Component } from "@tarojs/taro";
-import classnames from "classnames";
 import { View, Image } from "@tarojs/components";
 
 import styles from "./index.module.scss";

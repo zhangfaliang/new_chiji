@@ -132,14 +132,14 @@ class Toggle extends Component {
     return (
       <View>
         {/* <Search /> */}
-        <Swiper autoplay={true} interval={1000} duration={300}>
+        <Swiper autoplay={true} interval={3000} duration={300}>
           {indexAdvertising &&
             indexAdvertising.map(unitId => {
               return (
                 <SwiperItem>
                   <ad
                     class="ad"
-                    style="width:'100%',height:'100%'"
+                 
                     unit-id={unitId}
                   />
                 </SwiperItem>
