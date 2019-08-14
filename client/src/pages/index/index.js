@@ -44,9 +44,6 @@ import EssayList from "../../components/essayList";
     initPage: () => {
       dispatch(initPage());
     },
-    asyncPageIndexGetData: pageNum => {
-      dispatch(getData(pageNum));
-    },
     getDataUpper(pageNum) {
       dispatch(getDataUpper(pageNum));
     },

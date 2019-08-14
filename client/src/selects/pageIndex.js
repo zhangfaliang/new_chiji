@@ -86,3 +86,26 @@ export const makeDatailText = createSelector(
   }
 );
 
+export const makeConfigAll = createSelector(
+  pageIndex,
+  data => {
+    const apiParams = get(data, "config.apiParams", {
+      header: { "content-type": "application/json" },
+      params: {
+        uid: 5529945701,
+        luicode: 10000011,
+        lfid:
+          "100103type%3D64%26q%3D%E5%88%BA%E6%BF%80%E6%88%98%E5%9C%BA%26t%3D0",
+        type: "uid",
+        value: "5529945701",
+        containerid: "1076035529945701",
+        page:  0
+      },
+      url: "https://m.weibo.cn/api/container/getIndex",
+    }); 
+    return {
+      apiParams,
+      isApi: get(data, "config.isApi")
+    }
+  }
+);

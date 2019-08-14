@@ -45,7 +45,7 @@ const processRes = data => {
         } = media_info;
         return {
           // text: text,
-          title: texts.join(","),
+          title: texts.join(",").replace(/,|'/g,''),
           mp4_hd_url,
           page_pic: get(page_pic, "url"),
           type,
