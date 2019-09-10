@@ -6,7 +6,8 @@ import { setPageIndexDetail } from "../../actions/index";
 import {
   makeDetailData,
   makeIndexDetailAdvertising,
-  makeDatailText
+  makeDatailText,
+  makeIndexVideolAdvertising
 } from "../../selects/pageIndex";
 import Layer from "../../components/layer";
 import VideoPlay from "../../components/videoComponent/video-play";
@@ -16,6 +17,7 @@ import TextDetail from "../../components/textDetail";
   createStructuredSelector({
     index_detail: makeDetailData,
     detailAdvertising: makeIndexDetailAdvertising,
+    videolAdvertising:makeIndexVideolAdvertising,
     datailText: makeDatailText
   }),
   dispatch => ({

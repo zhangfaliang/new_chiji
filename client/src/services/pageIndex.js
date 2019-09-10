@@ -30,6 +30,15 @@ export const getIndexUrlData = ({ pageNum, apiParams }) => {
   });
 };
 
+export const getIndexAdvertising = pageNum => {
+  return testDB
+    .collection("indexAdvertising")
+    .get()
+    .then(res => {
+      // res.data 包含该记录的数据
+      return res;
+    });
+};
 export const getConfig = () => {
   return testDB
     .collection("appConfig")

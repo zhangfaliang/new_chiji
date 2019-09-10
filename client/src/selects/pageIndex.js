@@ -33,14 +33,15 @@ export const makeLastPageNum = createSelector(
 export const makeAdvertising = createSelector(
   pageIndex,
   pageIndex => {
-    const { advertising, advertisingIndexDetail } = get(
+    const { advertising, advertisingIndexDetail, video } = get(
       pageIndex,
-      "indexAdvertising.data.0",
+      "indexAdvertising",
       {}
     );
     return {
       advertising,
-      advertisingIndexDetail
+      advertisingIndexDetail,
+      video
     };
   }
 );
@@ -57,7 +58,12 @@ export const makeIndexDetailAdvertising = createSelector(
     return get(advertising, "advertisingIndexDetail");
   }
 );
-
+export const makeIndexVideolAdvertising = createSelector(
+  makeAdvertising,
+  advertising => {
+    return get(advertising, "video");
+  }
+);
 export const makeConfig = createSelector(
   pageIndex,
   data => {
@@ -85,4 +91,3 @@ export const makeDatailText = createSelector(
     return get(data, "datailText.data", {});
   }
 );
-

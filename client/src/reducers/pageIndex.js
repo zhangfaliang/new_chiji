@@ -51,7 +51,7 @@ export default function pageIndex(state = INITIAL_STATE, action) {
     case SET_PAGE_INDEX_ADVERTISING:
       return {
         ...state,
-        indexAdvertising: action.indexAdvertising
+        indexAdvertising: action.indexAdvertisings
       };
     case SET_CONFIG:
       return {
