@@ -23,7 +23,8 @@ import {
   makeFeed,
   makeIndexAdvertising,
   makeTitleList,
-  makeIsAPI
+  makeIsAPI,
+  makeIndexVideolAdvertising
 } from "../../selects/pageIndex";
 import { makeCounter } from "../../selects/count";
 import QuestionName from "../../components/questionName/index";
@@ -37,6 +38,7 @@ import EssayList from "../../components/essayList";
     feedData: makeFeed,
     counter: makeCounter,
     indexAdvertising: makeIndexAdvertising,
+    videolAdvertising: makeIndexVideolAdvertising,
     titleList: makeTitleList,
     isAPI: makeIsAPI
   }),
@@ -130,25 +132,16 @@ class Toggle extends Component {
   }
 
   render() {
-    const { feedData, indexAdvertising, titleList, isAPI } = this.props;
+    const {
+      feedData,
+      indexAdvertising,
+      titleList,
+      isAPI,
+      videolAdvertising
+    } = this.props;
     const { feed } = feedData;
     return (
       <View>
-        {/* <Search /> */}
-        <Swiper autoplay={true} interval={1000} duration={300}>
-          {indexAdvertising &&
-            indexAdvertising.map(unitId => {
-              return (
-                <SwiperItem>
-                  <ad
-                    class="ad"
-                    style="width:'100%',height:'100%'"
-                    unit-id={unitId}
-                  />
-                </SwiperItem>
-              );
-            })}
-        </Swiper>
         <ScrollView
           scrollY="true"
           className="container"
@@ -187,9 +180,11 @@ class Toggle extends Component {
                     bmiddle_pic,
                     isPic
                   } = item;
+                  
                   return (
                     <Block data-idx={idx}>
                       <View className="feed-item">
+                        {idx%3===0?   <ad class="ad" unit-id={unitId} />:''}
                         <View className="feed-content">
                           <QuestionName
                             question_id={_id}
