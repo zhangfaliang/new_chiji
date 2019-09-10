@@ -46,9 +46,6 @@ import EssayList from "../../components/essayList";
     initPage: () => {
       dispatch(initPage());
     },
-    asyncPageIndexGetData: pageNum => {
-      dispatch(getData(pageNum));
-    },
     getDataUpper(pageNum) {
       dispatch(getDataUpper(pageNum));
     },
@@ -142,6 +139,8 @@ class Toggle extends Component {
     const { feed } = feedData;
     return (
       <View>
+        {/* <Search /> */}
+
         <ScrollView
           scrollY="true"
           className="container"
@@ -180,11 +179,28 @@ class Toggle extends Component {
                     bmiddle_pic,
                     isPic
                   } = item;
-                  
+
                   return (
                     <Block data-idx={idx}>
                       <View className="feed-item">
-                        {idx%3===0?   <ad class="ad" unit-id={unitId} />:''}
+                        {idx % 3 === 1 ? (
+                          <Swiper
+                            autoplay={true}
+                            interval={3000}
+                            duration={300}
+                          >
+                            {indexAdvertising &&
+                              indexAdvertising.map(unitId => {
+                                return (
+                                  <SwiperItem>
+                                    <ad class="ad" unit-id={unitId} />
+                                  </SwiperItem>
+                                );
+                              })}
+                          </Swiper>
+                        ) : (
+                          ""
+                        )}
                         <View className="feed-content">
                           <QuestionName
                             question_id={_id}
