@@ -8,7 +8,7 @@ import {
   SwiperItem
 } from "@tarojs/components";
 import Taro, { Component } from "@tarojs/taro";
-import { isEmpty } from "lodash";
+import { isEmpty, get } from "lodash";
 import "./index.scss";
 import {
   getData,
@@ -152,6 +152,26 @@ class Toggle extends Component {
           scrollTop={true}
         >
           <View className="todo">
+            <Swiper autoplay={true} interval={4000} duration={300}>
+              {indexAdvertising &&
+                indexAdvertising.map(adverting => {
+                  const { id } = adverting;
+                  return get(adverting, "ad-type") ? (
+                    <SwiperItem>
+                      <ad
+                        class="ad"
+                        unit-id={id}
+                        ad-type={get(adverting, "ad-type")}
+                        ad-theme={get(adverting, "ad-theme")}
+                      />
+                    </SwiperItem>
+                  ) : (
+                    <SwiperItem>
+                      <ad unit-id={id}></ad>
+                    </SwiperItem>
+                  );
+                })}
+            </Swiper>
             {!isAPI &&
               titleList &&
               titleList.map(item => {
@@ -183,17 +203,27 @@ class Toggle extends Component {
                   return (
                     <Block data-idx={idx}>
                       <View className="feed-item">
-                        {idx % 3 === 1 ? (
+                        {idx % 3 === 2 ? (
                           <Swiper
                             autoplay={true}
-                            interval={3000}
+                            interval={4000}
                             duration={300}
                           >
                             {indexAdvertising &&
-                              indexAdvertising.map(unitId => {
-                                return (
+                              indexAdvertising.map(adverting => {
+                                const { id } = adverting;
+                                return get(adverting, "ad-type") ? (
                                   <SwiperItem>
-                                    <ad class="ad" unit-id={unitId} />
+                                    <ad
+                                      class="ad"
+                                      unit-id={id}
+                                      ad-type={get(adverting, "ad-type")}
+                                      ad-theme={get(adverting, "ad-theme")}
+                                    />
+                                  </SwiperItem>
+                                ) : (
+                                  <SwiperItem>
+                                    <ad unit-id={id}></ad>
                                   </SwiperItem>
                                 );
                               })}
