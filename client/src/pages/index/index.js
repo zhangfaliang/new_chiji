@@ -152,31 +152,42 @@ class Toggle extends Component {
           scrollTop={true}
         >
           <View className="todo">
-            <Swiper autoplay={true} interval={4000} duration={300}>
-              {indexAdvertising &&
-                indexAdvertising.map(adverting => {
-                  const { id } = adverting;
-                  return get(adverting, "ad-type") ? (
-                    <SwiperItem>
-                      <ad
-                        class="ad"
-                        unit-id={id}
-                        ad-type={get(adverting, "ad-type")}
-                        ad-theme={get(adverting, "ad-theme")}
-                      />
-                    </SwiperItem>
-                  ) : (
-                    <SwiperItem>
-                      <ad unit-id={id}></ad>
-                    </SwiperItem>
-                  );
-                })}
-            </Swiper>
             {!isAPI &&
               titleList &&
-              titleList.map(item => {
+              titleList.map((item, index) => {
                 const { imgUrl, title, idNum } = item;
-                return (
+
+                return index === 0 ? (
+                  <div>
+                    <Swiper autoplay={true} interval={4000} duration={300}>
+                      {indexAdvertising &&
+                        indexAdvertising.map(adverting => {
+                          const { id } = adverting;
+                          return get(adverting, "ad-type") ? (
+                            <SwiperItem>
+                              <ad
+                                class="ad"
+                                unit-id={id}
+                                ad-type={get(adverting, "ad-type")}
+                                ad-theme={get(adverting, "ad-theme")}
+                              />
+                            </SwiperItem>
+                          ) : (
+                            <SwiperItem>
+                              <ad unit-id={id}></ad>
+                            </SwiperItem>
+                          );
+                        })}
+                    </Swiper>
+                    <EssayList
+                      key={idNum}
+                      imgUrl={imgUrl}
+                      idNum={idNum}
+                      title={title}
+                      titleClick={this.onTitleClick}
+                    />
+                  </div>
+                ) : (
                   <EssayList
                     key={idNum}
                     imgUrl={imgUrl}
@@ -189,59 +200,55 @@ class Toggle extends Component {
             {feed &&
               isAPI &&
               feed.map((item, idx) => {
-                  const {
-                    title,
-                    original_pic,
-                    _id,
-                    pics,
-                    bmiddle_pic,
-                    isPic
-                  } = item;
-                  const detailAdverti = get(detailAdvertising, `${idx}`, {});
-                  return (
-                    <Block data-idx={idx}>
-                      <View className="feed-item">
-                        {get(detailAdverti, "ad-type") ? (
-                          <div>
-                            <ad
-                              class="ad"
-                              unit-id={get(detailAdverti, "id")}
-                              ad-type={get(detailAdverti, "ad-type")}
-                              ad-theme={get(detailAdverti, "ad-theme")}
-                            />
-                          </div>
-                        ) : (
-                          <div>
-                            <ad unit-id={get(detailAdverti, "id")}></ad>
-                          </div>
-                        )}
+                const {
+                  title,
+                  original_pic,
+                  _id,
+                  pics,
+                  bmiddle_pic,
+                  isPic
+                } = item;
+                const detailAdverti = get(indexAdvertising, `${idx}`, {});
+                return (
+                  <Block data-idx={idx}>
+                    <View className="feed-item">
+                      {get(detailAdverti, "ad-type") ? (
+                        <ad
+                          class="ad"
+                          unit-id={get(detailAdverti, "id")}
+                          ad-type={get(detailAdverti, "ad-type")}
+                          ad-theme={get(detailAdverti, "ad-theme")}
+                        />
+                      ) : (
+                        <ad unit-id={get(detailAdverti, "id")}></ad>
+                      )}
 
-                        <View className="feed-content">
-                          <QuestionName
-                            question_id={_id}
-                            bindQueTap={this.bindQueTap.bind(this, _id)}
-                            question={title}
-                          />
-                          <View className="answer-body">
-                            {isPic ? (
-                              <ImageWrap
-                                pics={pics}
-                                handleImgClick={this.handleImgClick}
-                                imageUrl={bmiddle_pic}
-                                bigImgUrl={original_pic}
-                              />
-                            ) : (
-                              <VideoComponent
-                                videoClick={this.videoClick}
-                                {...item}
-                              />
-                            )}
-                          </View>
+                      <View className="feed-content">
+                        <QuestionName
+                          question_id={_id}
+                          bindQueTap={this.bindQueTap.bind(this, _id)}
+                          question={title}
+                        />
+                        <View className="answer-body">
+                          {isPic ? (
+                            <ImageWrap
+                              pics={pics}
+                              handleImgClick={this.handleImgClick}
+                              imageUrl={bmiddle_pic}
+                              bigImgUrl={original_pic}
+                            />
+                          ) : (
+                            <VideoComponent
+                              videoClick={this.videoClick}
+                              {...item}
+                            />
+                          )}
                         </View>
                       </View>
-                    </Block>
-                  );
-                })}
+                    </View>
+                  </Block>
+                );
+              })}
           </View>
         </ScrollView>
       </View>
