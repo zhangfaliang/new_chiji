@@ -1,5 +1,5 @@
 import { createSelector } from "reselect";
-import { get } from "lodash";
+import { get, isEmpty } from "lodash";
 const pageIndex = state => state.pageIndex;
 
 export const makePageIndex = createSelector(
@@ -12,7 +12,9 @@ export const makeFeed = createSelector(
   pageIndex,
   pageIndex => {
     return {
-      feed: get(pageIndex, "pageDate", []),
+      feed: get(pageIndex, "pageDate", []).filter(
+        item => !isEmpty(item) && !/微博投票/.test(item.title)
+      ),
       feed_length: get(pageIndex, "pageDate", []).length
     };
   }
@@ -105,13 +107,13 @@ export const makeConfigAll = createSelector(
         type: "uid",
         value: "5529945701",
         containerid: "1076035529945701",
-        page:  0
+        page: 0
       },
-      url: "https://m.weibo.cn/api/container/getIndex",
-    }); 
+      url: "https://m.weibo.cn/api/container/getIndex"
+    });
     return {
       apiParams,
       isApi: get(data, "config.isApi")
-    }
+    };
   }
 );

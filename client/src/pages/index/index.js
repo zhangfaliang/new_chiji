@@ -141,8 +141,6 @@ class Toggle extends Component {
     const { feed } = feedData;
     return (
       <View>
-        {/* <Search /> */}
-
         <ScrollView
           scrollY="true"
           className="container"
@@ -190,9 +188,7 @@ class Toggle extends Component {
               })}
             {feed &&
               isAPI &&
-              feed
-                .filter(item => !isEmpty(item))
-                .map((item, idx) => {
+              feed.map((item, idx) => {
                   const {
                     title,
                     original_pic,
