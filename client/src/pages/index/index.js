@@ -24,7 +24,8 @@ import {
   makeIndexAdvertising,
   makeTitleList,
   makeIsAPI,
-  makeIndexVideolAdvertising
+  makeIndexVideolAdvertising,
+  makeIndexDetailAdvertising
 } from "../../selects/pageIndex";
 import { makeCounter } from "../../selects/count";
 import QuestionName from "../../components/questionName/index";
@@ -40,7 +41,8 @@ import EssayList from "../../components/essayList";
     indexAdvertising: makeIndexAdvertising,
     videolAdvertising: makeIndexVideolAdvertising,
     titleList: makeTitleList,
-    isAPI: makeIsAPI
+    isAPI: makeIsAPI,
+    detailAdvertising: makeIndexDetailAdvertising
   }),
   dispatch => ({
     initPage: () => {
@@ -134,7 +136,7 @@ class Toggle extends Component {
       indexAdvertising,
       titleList,
       isAPI,
-      videolAdvertising
+      detailAdvertising
     } = this.props;
     const { feed } = feedData;
     return (
@@ -199,38 +201,25 @@ class Toggle extends Component {
                     bmiddle_pic,
                     isPic
                   } = item;
-
+                  const detailAdverti = get(detailAdvertising, `${idx}`, {});
                   return (
                     <Block data-idx={idx}>
                       <View className="feed-item">
-                        {idx % 3 === 2 ? (
-                          <Swiper
-                            autoplay={true}
-                            interval={4000}
-                            duration={300}
-                          >
-                            {indexAdvertising &&
-                              indexAdvertising.map(adverting => {
-                                const { id } = adverting;
-                                return get(adverting, "ad-type") ? (
-                                  <SwiperItem>
-                                    <ad
-                                      class="ad"
-                                      unit-id={id}
-                                      ad-type={get(adverting, "ad-type")}
-                                      ad-theme={get(adverting, "ad-theme")}
-                                    />
-                                  </SwiperItem>
-                                ) : (
-                                  <SwiperItem>
-                                    <ad unit-id={id}></ad>
-                                  </SwiperItem>
-                                );
-                              })}
-                          </Swiper>
+                        {get(detailAdverti, "ad-type") ? (
+                          <div>
+                            <ad
+                              class="ad"
+                              unit-id={get(detailAdverti, "id")}
+                              ad-type={get(detailAdverti, "ad-type")}
+                              ad-theme={get(detailAdverti, "ad-theme")}
+                            />
+                          </div>
                         ) : (
-                          ""
+                          <div>
+                            <ad unit-id={get(detailAdverti, "id")}></ad>
+                          </div>
                         )}
+
                         <View className="feed-content">
                           <QuestionName
                             question_id={_id}

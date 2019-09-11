@@ -55,14 +55,14 @@ export const getIndexTotal = () => {
   return testDB.collection("indexList").count();
 };
 
-export const getIndexAdvertising = () => {
-  return testDB
-    .collection("indexAdvertising")
-    .orderBy("_id", "desc")
-    .limit(20) //
-    .get()
-    .then(res => {
-      // res.data 包含该记录的数据
-      return res;
-    });
-};
+// export const getIndexAdvertising = () => {
+//   return testDB
+//     .collection("indexAdvertising")
+//     .orderBy("_id", "desc")
+//     .limit(20) //
+//     .get()
+//     .then(res => {
+//       // res.data 包含该记录的数据
+//       return res;
+//     });
+// };
