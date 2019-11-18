@@ -5,7 +5,8 @@ import {
   ScrollView,
   View,
   Swiper,
-  SwiperItem
+  SwiperItem,
+  Image
 } from "@tarojs/components";
 import Taro, { Component } from "@tarojs/taro";
 import { isEmpty, get } from "lodash";
@@ -32,6 +33,7 @@ import QuestionName from "../../components/questionName/index";
 import ImageWrap from "../../components/images";
 import VideoComponent from "../../components/videoComponent";
 import EssayList from "../../components/essayList";
+import TextDetail from "../../components/textDetail";
 
 @connect(
   createStructuredSelector({
@@ -139,6 +141,8 @@ class Toggle extends Component {
       detailAdvertising
     } = this.props;
     const { feed } = feedData;
+
+    // 添加广告
     return (
       <View>
         <ScrollView
@@ -159,25 +163,14 @@ class Toggle extends Component {
 
                 return index === 0 ? (
                   <div>
-                    <Swiper autoplay={true} interval={4000} duration={300}>
-                      {indexAdvertising &&
-                        indexAdvertising.map(adverting => {
-                          const { id } = adverting;
-                          return get(adverting, "ad-type") ? (
-                            <SwiperItem>
-                              <ad
-                                class="ad"
-                                unit-id={id}
-                                ad-type={get(adverting, "ad-type")}
-                                ad-theme={get(adverting, "ad-theme")}
-                              />
-                            </SwiperItem>
-                          ) : (
-                            <SwiperItem>
-                              <ad unit-id={id}></ad>
-                            </SwiperItem>
-                          );
-                        })}
+                    <Swiper autoplay={false} interval={4000} duration={300}>
+                      <SwiperItem>
+                        <Image
+                          src={
+                            "http://img2.imgtn.bdimg.com/it/u=2618478855,3890988105&fm=26&gp=0.jpg"
+                          }
+                        />
+                      </SwiperItem>
                     </Swiper>
                     <EssayList
                       key={idNum}
