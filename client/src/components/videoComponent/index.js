@@ -1,7 +1,5 @@
 import Taro, { Component } from "@tarojs/taro";
-import classnames from "classnames";
-import { View, Image, Icon, Video } from "@tarojs/components";
-import VideoPlay from "./video-play";
+import { View, Image} from "@tarojs/components";
 import playPng from '../../images/play.png';
 
 import styles from "./index.module.scss";

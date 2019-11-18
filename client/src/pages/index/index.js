@@ -10,7 +10,7 @@ import {
 } from "@tarojs/components";
 import Taro, { Component } from "@tarojs/taro";
 import { isEmpty, get } from "lodash";
-import "./index.scss";
+// import "./index.scss";
 import {
   getData,
   getDataUpper,
