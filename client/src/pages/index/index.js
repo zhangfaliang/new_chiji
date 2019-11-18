@@ -10,7 +10,7 @@ import {
 } from "@tarojs/components";
 import Taro, { Component } from "@tarojs/taro";
 import { isEmpty, get } from "lodash";
-// import "./index.scss";
+import "./index.scss";
 import {
   getData,
   getDataUpper,
@@ -32,7 +32,6 @@ import QuestionName from "../../components/questionName/index";
 import ImageWrap from "../../components/images";
 import VideoComponent from "../../components/videoComponent";
 import EssayList from "../../components/essayList";
-import TextDetail from "../../components/textDetail";
 
 @connect(
   createStructuredSelector({
@@ -142,7 +141,7 @@ class Toggle extends Component {
 
     // 添加广告
     return (
-      <View>
+      <Vie className="todo">
         <ScrollView
           scrollY="true"
           className="container"
@@ -153,7 +152,7 @@ class Toggle extends Component {
           scrollIntoView={true}
           scrollTop={true}
         >
-          <View className="todo">
+          <View>
             {!isAPI &&
               titleList &&
               titleList.map((item, index) => {
@@ -161,14 +160,28 @@ class Toggle extends Component {
 
                 return index === 0 ? (
                   <div>
-                    <Swiper autoplay={false} interval={4000} duration={300}>
-                      <SwiperItem>
-                        <Image
-                          src={
-                            "http://img2.imgtn.bdimg.com/it/u=2618478855,3890988105&fm=26&gp=0.jpg"
-                          }
-                        />
-                      </SwiperItem>
+                    <Swiper
+                      autoplay={true}
+                      interval={3000}
+                      duration={300}
+                      indicatorDots
+                    >
+                      {indexAdvertising.map(item => {
+                        return (
+                          <SwiperItem>
+                            {get(item, "ad-type") ? (
+                              <ad
+                                class="ad"
+                                unit-id={get(item, "id")}
+                                ad-type={get(item, "ad-type")}
+                                ad-theme={get(item, "ad-theme")}
+                              />
+                            ) : (
+                              <ad unit-id={get(item, "id")}></ad>
+                            )}
+                          </SwiperItem>
+                        );
+                      })}
                     </Swiper>
                     <EssayList
                       key={idNum}
@@ -188,61 +201,79 @@ class Toggle extends Component {
                   />
                 );
               })}
-            {feed &&
-              isAPI &&
-              feed.map((item, idx) => {
-                const {
-                  title,
-                  original_pic,
-                  _id,
-                  pics,
-                  bmiddle_pic,
-                  isPic
-                } = item;
-                const detailAdverti = get(indexAdvertising, `${idx}`, {});
-                return (
-                  <Block data-idx={idx}>
-                    <View className="feed-item">
-                      {get(detailAdverti, "ad-type") ? (
-                        <ad
-                          class="ad"
-                          unit-id={get(detailAdverti, "id")}
-                          ad-type={get(detailAdverti, "ad-type")}
-                          ad-theme={get(detailAdverti, "ad-theme")}
-                        />
-                      ) : (
-                        <ad unit-id={get(detailAdverti, "id")}></ad>
-                      )}
-
-                      <View className="feed-content">
-                        <QuestionName
-                          question_id={_id}
-                          bindQueTap={this.bindQueTap.bind(this, _id)}
-                          question={title}
-                        />
-                        <View className="answer-body">
-                          {isPic ? (
-                            <ImageWrap
-                              pics={pics}
-                              handleImgClick={this.handleImgClick}
-                              imageUrl={bmiddle_pic}
-                              bigImgUrl={original_pic}
+            {feed && isAPI && (
+              <View className="wrap">
+                <View className="ad_wrap">
+                  <Swiper
+                    autoplay={true}
+                    interval={3000}
+                    duration={300}
+                    indicatorDots
+                  >
+                    {indexAdvertising.map(item => {
+                      return (
+                        <SwiperItem>
+                          {get(item, "ad-type") ? (
+                            <ad
+                              class="ad"
+                              unit-id={get(item, "id")}
+                              ad-type={get(item, "ad-type")}
+                              ad-theme={get(item, "ad-theme")}
                             />
                           ) : (
-                            <VideoComponent
-                              videoClick={this.videoClick}
-                              {...item}
-                            />
+                            <ad unit-id={get(item, "id")}></ad>
                           )}
+                        </SwiperItem>
+                      );
+                    })}
+                  </Swiper>
+                </View>
+                <View className="feed_wrap">
+                  {feed.map((item, idx) => {
+                    const {
+                      title,
+                      original_pic,
+                      _id,
+                      pics,
+                      bmiddle_pic,
+                      isPic
+                    } = item;
+
+                    return (
+                      <Block data-idx={idx}>
+                        <View className="feed-item">
+                          <View className="feed-content">
+                            <QuestionName
+                              question_id={_id}
+                              bindQueTap={this.bindQueTap.bind(this, _id)}
+                              question={title}
+                            />
+                            <View className="answer-body">
+                              {isPic ? (
+                                <ImageWrap
+                                  pics={pics}
+                                  handleImgClick={this.handleImgClick}
+                                  imageUrl={bmiddle_pic}
+                                  bigImgUrl={original_pic}
+                                />
+                              ) : (
+                                <VideoComponent
+                                  videoClick={this.videoClick}
+                                  {...item}
+                                />
+                              )}
+                            </View>
+                          </View>
                         </View>
-                      </View>
-                    </View>
-                  </Block>
-                );
-              })}
+                      </Block>
+                    );
+                  })}
+                </View>
+              </View>
+            )}
           </View>
         </ScrollView>
-      </View>
+      </Vie>
     );
   }
 }
