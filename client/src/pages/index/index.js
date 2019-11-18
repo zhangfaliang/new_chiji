@@ -28,7 +28,6 @@ import {
   makeIndexVideolAdvertising,
   makeIndexDetailAdvertising
 } from "../../selects/pageIndex";
-import { makeCounter } from "../../selects/count";
 import QuestionName from "../../components/questionName/index";
 import ImageWrap from "../../components/images";
 import VideoComponent from "../../components/videoComponent";
@@ -39,7 +38,6 @@ import TextDetail from "../../components/textDetail";
   createStructuredSelector({
     pageIndex: makePageIndex,
     feedData: makeFeed,
-    counter: makeCounter,
     indexAdvertising: makeIndexAdvertising,
     videolAdvertising: makeIndexVideolAdvertising,
     titleList: makeTitleList,
