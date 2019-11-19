@@ -83,7 +83,7 @@ class Toggle extends Component {
       url: `../answer/answer?answer_id=${answer_id}`
     });
   };
-  bindQueTap = question_id => {};
+  bindQueTap = question_id => { };
 
   handleImgClick = (pics, index) => {
     this.props.onSetPageIndexDetail({
@@ -154,61 +154,49 @@ class Toggle extends Component {
         >
           <View>
             {!isAPI &&
-              titleList &&
-              titleList.map((item, index) => {
-                const { imgUrl, title, idNum } = item;
-
-                return index === 0 ? (
-                  <div>
-                    <Swiper
-                      autoplay={true}
-                      interval={3000}
-                      duration={300}
-                      indicatorDots
-                    >
-                      {indexAdvertising.map(item => {
-                        return (
-                          <SwiperItem>
-                            {get(item, "ad-type") ? (
-                              <ad
-                                class="ad"
-                                unit-id={get(item, "id")}
-                                ad-type={get(item, "ad-type")}
-                                ad-theme={get(item, "ad-theme")}
-                              />
-                            ) : (
-                              <ad unit-id={get(item, "id")}></ad>
-                            )}
-                          </SwiperItem>
-                        );
-                      })}
-                    </Swiper>
-                    <EssayList
-                      key={idNum}
-                      imgUrl={imgUrl}
-                      idNum={idNum}
-                      title={title}
-                      titleClick={this.onTitleClick}
-                    />
-                  </div>
-                ) : (
-                  <EssayList
+              titleList && (<View>
+                <Swiper
+                  autoplay={true}
+                  interval={3000}
+                  duration={200}
+                >
+                  {indexAdvertising&&indexAdvertising.map(item => {
+                    return (
+                      <SwiperItem>
+                        {get(item, "ad-type") ? (
+                          <ad
+                            class="ad"
+                            unit-id={get(item, "id")}
+                            ad-type={get(item, "ad-type")}
+                            ad-theme={get(item, "ad-theme")}
+                          />
+                        ) : (
+                            <ad unit-id={get(item, "id")}></ad>
+                          )}
+                      </SwiperItem>
+                    );
+                  })}
+                </Swiper>
+                {titleList.map((item, index) => {
+                  const { imgUrl, title, idNum } = item;
+                  return (<EssayList
                     key={idNum}
                     imgUrl={imgUrl}
                     idNum={idNum}
                     title={title}
-                    titleClick={this.onTitleClick}
-                  />
-                );
-              })}
+                    titleClick={this.onTitleClick} />)
+                })}}
+
+              </View>)}
+
+
             {feed && isAPI && (
               <View className="wrap">
                 <View className="ad_wrap">
                   <Swiper
                     autoplay={true}
                     interval={3000}
-                    duration={300}
-                    indicatorDots
+                    duration={100}
                   >
                     {indexAdvertising.map(item => {
                       return (
@@ -221,8 +209,8 @@ class Toggle extends Component {
                               ad-theme={get(item, "ad-theme")}
                             />
                           ) : (
-                            <ad unit-id={get(item, "id")}></ad>
-                          )}
+                              <ad unit-id={get(item, "id")}></ad>
+                            )}
                         </SwiperItem>
                       );
                     })}
@@ -257,11 +245,11 @@ class Toggle extends Component {
                                   bigImgUrl={original_pic}
                                 />
                               ) : (
-                                <VideoComponent
-                                  videoClick={this.videoClick}
-                                  {...item}
-                                />
-                              )}
+                                  <VideoComponent
+                                    videoClick={this.videoClick}
+                                    {...item}
+                                  />
+                                )}
                             </View>
                           </View>
                         </View>
