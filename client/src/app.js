@@ -62,6 +62,7 @@ class App extends Taro.Component {
 
   componentWillMount() {
     this.$app.globalData = this.globalData;
+    getUserInfo((userInfo)=>{console.log('--------',userInfo,'00000000------------------')})
   }
 
   render() {
